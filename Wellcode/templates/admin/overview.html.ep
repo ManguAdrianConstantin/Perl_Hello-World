@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	%= form_for 'add_account' => (method => 'POST') => begin
+	%= label_for username_account => 'Username'
+	%= text_field 'username_account'
+
+	%= label_for acc_type => 'Account name'
+	%= text_field 'acc_type'
+
+	%= label_for description => 'Description'
+	%= text_field 'description'
+
+	%= submit_button 'Add account on the page', class => 'btn'
+	%end
+
+	<% my $check = 0;
+	my $accounts = stash "accounts";
+	if(!@$accounts) { %>
+		% $check = 1;
+		<div class="center">
+		<p>No accounts available for this account</p>
+		</div>
+	<% } if($check == 0) { %>
+		<div class="flex-container">
+			<% for my $account (@$accounts) { %>
+				% my $link_delete = "/admin/" . $account->acc_id;
+				<div class="card" style="width: 10rem; padding: 2rem;">
+					<div class="card-body">
+						<h5 class="card-title"><%= $account->username %></h5>
+						<h6 class="card-subtitle mb-2 text-muted"><%= $account->acc_type %></h6>
+						<p class="card-text"><%= $account->description %></p>
+						<br>
+						<a href="<%= $link_delete %>" class="card-link">Delete</a>
+					</div>
+				</div>
+			<% } %>
+		</div>
+	<% } %>
+</html>

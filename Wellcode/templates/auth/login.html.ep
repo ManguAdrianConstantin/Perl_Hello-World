@@ -1,0 +1,15 @@
+% layout 'default';
+% title 'Login | Form';
+
+%= form_for 'on_login' => (method => 'POST') => begin
+%= label_for username => 'Username'
+%= text_field 'username'
+
+%= label_for password => 'Password'
+%= password_field 'password'
+
+%= submit_button 'Login', class => 'btn'
+% end
+% if(stash('wrongUser') eq 'Wrong') {
+	<p> Error: The user or password is wrong. Please try again!</p>
+% }
